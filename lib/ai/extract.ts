@@ -38,8 +38,10 @@ async function extractFromDoc(base64: string): Promise<ExtractedContent> {
 
   let text = ''
   if (isPdf) {
-    const pdfParse = (await import('pdf-parse')).default
-    const data = await pdfParse(buffer)
+    const pdfParseModule = await import('pdf-parse')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pdfParse = (pdfParseModule as any).default ?? pdfParseModule
+    const data = await (pdfParse as (buf: Buffer) => Promise<{ text: string }>)(buffer)
     text = data.text
   } else {
     const mammoth = await import('mammoth')

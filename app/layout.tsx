@@ -1,73 +1,21 @@
-import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import { ClerkProvider } from "@clerk/nextjs"
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://itis-secure.com"),
-  title: {
-    default: "ITIS Secure | TISAX & ISO 27001 Compliance Experts",
-    template: "%s | ITIS Secure",
-  },
-  description: "European TISAX specialists with 98% first-time pass rate. Achieve TISAX AL3 certification for BMW, VW, Mercedes contracts. ISO 27001 Lead Auditors.",
-  keywords: ["TISAX", "ISO 27001", "automotive compliance", "TISAX assessment", "VDA ISA", "information security", "ISMS"],
-  authors: [{ name: "ITIS Secure" }],
-  creator: "ITIS Secure",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://itis-secure.com",
-    siteName: "ITIS Secure",
-    title: "ITIS Secure | TISAX & ISO 27001 Compliance Experts",
-    description: "European TISAX specialists with 98% first-time pass rate.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "ITIS Secure | TISAX & ISO 27001 Compliance Experts",
-    description: "European TISAX specialists with 98% first-time pass rate.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-};
+  title: { default: "Repurpose Engine", template: "%s | Repurpose Engine" },
+  description: "Turn any content into 10 platform-ready posts with AI.",
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased font-sans`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+    <ClerkProvider>
+      <html lang="en">
+        <body className={inter.className}>{children}</body>
+      </html>
+    </ClerkProvider>
+  )
 }
