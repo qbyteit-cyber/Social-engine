@@ -1,3 +1,27 @@
+# Social Engine
+
+A Next.js + WebGL security visualization app, with a Kimi AI blotato-clone backend.
+
+## Blotato-Clone Setup
+
+### Backend
+```bash
+cd /mnt/kimi/output/blotato-clone/backend
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env  # Add your OpenAI API key
+uvicorn main:app --reload
+```
+
+### Frontend
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
