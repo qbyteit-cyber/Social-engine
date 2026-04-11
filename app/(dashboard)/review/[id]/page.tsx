@@ -13,7 +13,7 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
   const supabase = await createServiceClient()
 
   const { data: user } = await supabase
-    .from("users").select("id").eq("clerk_id", userId!).single()
+    .from("users").select("id, plan").eq("clerk_id", userId!).single()
 
   const { data: job } = await supabase
     .from("content_jobs")
@@ -26,8 +26,15 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
 
   const { data: variants } = await supabase
     .from("platform_variants")
-    .select("platform, content, id")
+    .select("id, platform, content")
     .eq("job_id", id)
+
+  const { data: connections } = await supabase
+    .from("platform_connections")
+    .select("platform")
+    .eq("user_id", user?.id ?? "")
+
+  const connectedPlatforms = (connections ?? []).map((c) => c.platform)
 
   const variantsOutput: PlatformVariantsOutput = {
     platforms: Object.fromEntries(
@@ -35,15 +42,25 @@ export default async function ReviewPage({ params }: { params: Promise<{ id: str
     ),
   }
 
+  const variantIds: Record<string, string> = Object.fromEntries(
+    (variants ?? []).map((v) => [v.platform, v.id])
+  )
+
+  const extracted = job.extracted as { title?: string } | null
+
   return (
     <div className="p-8">
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Review variants</h1>
-        <p className="text-muted-foreground">
-          Edit any platform&apos;s copy, then copy or schedule to post.
-        </p>
+        {extracted?.title && <p className="text-muted-foreground">{extracted.title}</p>}
       </div>
-      <VariantsEditor jobId={id} initial={variantsOutput} />
+      <VariantsEditor
+        jobId={id}
+        initial={variantsOutput}
+        variantIds={variantIds}
+        connectedPlatforms={connectedPlatforms}
+        canSchedule={user?.plan !== "free"}
+      />
     </div>
   )
 }
