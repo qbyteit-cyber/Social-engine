@@ -1,60 +1,48 @@
-# Social Engine
+# Repurpose Engine (Social Engine)
 
-A Next.js + WebGL security visualization app, with a Kimi AI blotato-clone backend.
+AI-powered content repurposing SaaS. Input one piece of content → AI reformats it → outputs platform-optimized posts for 10 social media channels.
 
-## Blotato-Clone Setup
+## Stack
 
-### Backend
-```bash
-cd /mnt/kimi/output/blotato-clone/backend
-python -m venv venv && source venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env  # Add your OpenAI API key
-uvicorn main:app --reload
-```
-
-### Frontend
-```bash
-cd ../frontend
-npm install
-npm run dev
-```
-
----
-
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+- **Framework:** Next.js 15 (App Router, TypeScript)
+- **Styling:** Tailwind CSS + shadcn/ui
+- **Auth:** Clerk
+- **Database:** Supabase (PostgreSQL)
+- **AI:** Anthropic Claude API
+- **Payments:** Stripe
+- **Email:** Resend
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Set up environment variables
+cp .env.example .env.local
+# Fill in all keys in .env.local
+
+# 3. Set up Supabase database
+# Run schema.sql in your Supabase SQL editor
+
+# 4. Start the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment Variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See `.env.example` for all required variables.
 
-## Learn More
+## Database
 
-To learn more about Next.js, take a look at the following resources:
+Run `schema.sql` in the Supabase SQL editor to create all tables.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Build Phases
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Phase 1 (MVP):** Content input → AI generation → side-by-side editor → copy to clipboard
+- **Phase 2 (Connected):** OAuth platform connections → one-click publish → scheduler
+- **Phase 3 (Brain):** Brand voice builder → post history → team workspaces
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `CLAUDE.md` in the repo root for full build specification.
