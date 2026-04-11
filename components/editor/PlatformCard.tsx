@@ -46,6 +46,16 @@ export function PlatformCard({ platform, variantId, variant, isConnected, canSch
   async function handlePublish() {
     setPublishState("loading")
     setPublishMsg("")
+    // Record approval + trigger AI learning before publishing
+    await fetch("/api/brand-voice/approve", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        variant_id: variantId,
+        original_text: variant.text,
+        edited_text: text,
+      }),
+    })
     try {
       const res = await fetch("/api/publish", {
         method: "POST",

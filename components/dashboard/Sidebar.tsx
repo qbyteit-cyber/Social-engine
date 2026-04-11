@@ -10,16 +10,22 @@ import {
   Calendar,
   Plug,
   Mic2,
+  History,
+  Users,
+  BookOpen,
   Settings,
 } from "lucide-react"
 
 const nav = [
-  { href: "/dashboard",     label: "Overview",     icon: LayoutDashboard },
-  { href: "/create",        label: "Create",       icon: PlusCircle },
-  { href: "/scheduler",     label: "Scheduler",    icon: Calendar },
-  { href: "/connections",   label: "Connections",  icon: Plug },
-  { href: "/brand-voice",   label: "Brand Voice",  icon: Mic2 },
-  { href: "/settings",      label: "Settings",     icon: Settings },
+  { href: "/dashboard",   label: "Overview",    icon: LayoutDashboard },
+  { href: "/create",      label: "Create",      icon: PlusCircle },
+  { href: "/history",     label: "History",     icon: History },
+  { href: "/scheduler",   label: "Scheduler",   icon: Calendar },
+  { href: "/connections", label: "Connections", icon: Plug },
+  { href: "/brand-voice", label: "Brand Voice", icon: Mic2 },
+  { href: "/team",        label: "Team",        icon: Users },
+  { href: "/obsidian",    label: "Obsidian",    icon: BookOpen },
+  { href: "/settings",    label: "Settings",    icon: Settings },
 ]
 
 export function Sidebar() {
@@ -31,7 +37,7 @@ export function Sidebar() {
         <Link href="/dashboard" className="text-lg font-bold">Repurpose Engine</Link>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1 p-4">
+      <nav className="flex flex-1 flex-col gap-1 overflow-y-auto p-4">
         {nav.map(({ href, label, icon: Icon }) => (
           <Link
             key={href}
