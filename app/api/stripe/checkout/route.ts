@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@clerk/nextjs/server"
-import Stripe from "stripe"
 import { z } from "zod"
 import { createServiceClient } from "@/lib/supabase/server"
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
+import { getStripe } from "@/lib/stripe/client"
 
 const PRICE_IDS: Record<string, string> = {
   creator: process.env.STRIPE_CREATOR_PRICE_ID ?? "",
@@ -27,7 +25,7 @@ export async function POST(req: NextRequest) {
   const priceId = PRICE_IDS[body.data.plan]
   if (!priceId) return NextResponse.json({ success: false, error: "Plan not configured" }, { status: 400 })
 
-  const session = await stripe.checkout.sessions.create({
+  const session = await getStripe().checkout.sessions.create({
     mode: "subscription",
     payment_method_types: ["card"],
     customer_email: user.email,
