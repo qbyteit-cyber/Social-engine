@@ -8,15 +8,23 @@ Working name: **Repurpose Engine** (rebrand later)
 ---
 
 ## STACK
-- **Framework:** Next.js 15 (App Router, TypeScript)
-- **Styling:** Tailwind CSS + shadcn/ui
-- **Auth:** Clerk
-- **Database:** Supabase (PostgreSQL)
-- **AI:** Anthropic Claude API (claude-sonnet-4-20250514 for generation, claude-haiku-4-5-20251001 for quick tasks)
-- **Job Queue / Scheduling:** Trigger.dev
-- **Payments:** Stripe
+- **Framework:** Next.js 16.2 (App Router, Turbopack, TypeScript 6)
+- **Runtime:** React 19.2 / React DOM 19.2
+- **Styling:** Tailwind CSS 4.2 + shadcn/ui (radix-ui 1.4, tailwind-merge 3.5, tailwindcss-animate, class-variance-authority, lucide-react 1.8 — note: no brand icons)
+- **Auth:** Clerk (@clerk/nextjs 7.2)
+- **Database:** Supabase / PostgreSQL (@supabase/supabase-js 2.103, @supabase/ssr 0.10)
+- **AI:** Anthropic Claude API (@anthropic-ai/sdk 0.89) — claude-sonnet-4-20250514 for generation, claude-haiku-4-5-20251001 for quick tasks
+- **Job Queue / Scheduling:** Trigger.dev SDK v4 (@trigger.dev/sdk 4.4)
+- **Payments:** Stripe 22 (server) + @stripe/stripe-js 9.2 (client)
+- **Validation:** Zod 4
+- **Forms:** react-hook-form 7.72 + @hookform/resolvers 5.2
+- **CMS (optional):** Sanity 5.21 + next-sanity 12.2 + @sanity/client 7.21
+- **3D:** three 0.183 + @react-three/fiber 9.6 + @react-three/drei 10.7
+- **Animation:** framer-motion 12.38
+- **Content ingestion:** cheerio 1.2 (HTML), mammoth 1.12 (DOCX), pdf-parse 2.4 (PDF)
+- **Email:** Resend 6.12
+- **Lint / Build tooling:** ESLint 10, eslint-config-next 16.2
 - **Deployment:** Vercel
-- **Email:** Resend
 
 ---
 
