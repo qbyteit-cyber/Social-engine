@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@clerk/nextjs/server"
-import Stripe from "stripe"
 import { createServiceClient } from "@/lib/supabase/server"
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!)
+import { getStripe } from "@/lib/stripe/client"
 
 export async function POST(req: NextRequest) {
   const { userId } = await auth()
@@ -13,6 +11,8 @@ export async function POST(req: NextRequest) {
   const { data: user } = await supabase
     .from("users").select("id, email").eq("clerk_id", userId).single()
   if (!user) return NextResponse.json({ success: false, error: "User not found" }, { status: 404 })
+
+  const stripe = getStripe()
 
   // Find Stripe customer by email
   const customers = await stripe.customers.list({ email: user.email, limit: 1 })
